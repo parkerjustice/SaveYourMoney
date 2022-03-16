@@ -6,10 +6,10 @@ request.onerror = function(event) {
 };
 
 function saveRecord(record) {
-    const trans = db.transaction(['item_progression'], 'redo');
+    const funding = db.transaction(['item_progression'], 'redo');
 
-    const budgetObjStore = trans.objectStore('item_progression');
-    budgetObjStore.add(record)
+    const storing = funding.objectStore('item_progression');
+    storing.add(record)
 }
 request.onupgradeneeded = function(event) {
     const db = event.target.result;
@@ -28,16 +28,14 @@ request.onerror = function(event) {
     console.log(event.target.errorCode)
 };
 function bringUp() {
-    const trans = db.transaction(['item_progression'], 'redo');
-
-    const budgetObjStore = trans.objectStore('item_progression');
-
-    const getAll = budgetObjStore.getAll();
-    getAll.onsuccess = function() {
-        if (getAll.result.length > 0) {
+    const funding = db.transaction(['item_progression'], 'redo');
+    const storing = funding.objectStore('item_progression');
+    const getALL = storing.getALL();
+    getALL.onsuccess = function() {
+        if (getALL.result.length > 0) {
             fetch('/api/transaction', {
                 method: 'POST',
-                body: JSON.stringify(getAll.result),
+                body: JSON.stringify(getALL.result),
                 headers: {
                     Accept: 'application/json, text/plain, */*',
                     'Content-Type': 'application/json'
@@ -48,11 +46,11 @@ function bringUp() {
                     if (serverResponse.message) {
                         throw new Error(serverResponse);
                     }
-                    const trans = db.transaction(['item_progression'], 'redo');
+                    const funding = db.transaction(['item_progression'], 'redo');
 
-                    const budgetObjStore = trans.objectStore('item_progression');
+                    const storing = funding.objectStore('item_progression');
 
-                    budgetObjStore.clear();
+                    storing.clear();
 
                     alert('All Items have been entered')
                 })
