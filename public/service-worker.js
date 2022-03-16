@@ -1,5 +1,7 @@
 const DATA_CACHE_NAME = "data-cache-v1";
-const CACHE_NAME = "static-cache-v1";
+const CACHE_NAME = "APP_PPREFIX + VERSION";
+const APP_PREFIX = "SaveYourMoney"
+const VERSION = "version1"
 const FILES_To_CACHE = [
     "./index.html",
     "./manifest.json",
