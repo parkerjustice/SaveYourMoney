@@ -17,8 +17,8 @@ const FILES_To_CACHE = [
 
 
 
-self.addEventListener("install", (eval) => {
-    eval.waitUntil(
+self.addEventListener("install", (event) => {
+    event.waitUntil(
       caches.open(CACHE_NAME).then((cache) => {
         return cache.addAll(FILES_TO_CACHE);
       })
@@ -28,8 +28,8 @@ self.addEventListener("install", (eval) => {
   });
 
   
-self.addEventListener('activate', function(eval) {
-    eval.waitUntil(
+self.addEventListener('activate', function(event) {
+    event.waitUntil(
         caches.keys().then(function (keyList) {
             let (Keeplist) = keyList.filter(function (key) {
       return key.indexOf(APP_PREFIX);
@@ -47,3 +47,40 @@ self.addEventListener('activate', function(eval) {
     )
     self.clients.claim();
 })
+self.addEventListener("fetch", (event) => {
+    if (event.request.url.includes("/api/") && event.request.method === "GET") {
+      event.respondWith(
+        caches
+          .open(DATA_CACHE_NAME)
+          .then((cache) => {
+            return fetch(event.request)
+              .then((response) => {
+                if (response.status === 200) {
+                  cache.put(event.request, response.clone());
+                }
+  
+                return response;
+              })
+              .catch(() => {
+                return cache.match(event.request);
+              });
+          })
+          .catch((err) => console.log(err))
+      );
+      return;
+    }
+
+    event.respondWith(
+
+
+fetch(event.request).catch(function() {
+ return caches.match(event.request).then(function(response) {
+  if (response) {
+   return response;
+   } else if (event.request.headers.get('accept position').includes('text/html')) {
+   return caches.match('/');
+}
+          });
+        })
+      );
+    });
