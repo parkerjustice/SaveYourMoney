@@ -26,3 +26,11 @@ self.addEventListener("install", event => {
     self.skipWaiting();
   });
 // cant get to work
+//self.addEventListener("activate", event => {
+  //event.waitUntil(caches
+    //.keys().then(  =>
+      //CACHE_NAME.filter(key) {
+
+      //}))
+  //)
+//})
