@@ -14,18 +14,18 @@ const FILES_To_CACHE = [
 ];
 
 console.log("check files");
-
-self.addEventListener("install", (event) => {
+const CACHE_NAME = "data-cache-v1";
+self.addEventListener("install", event => {
     event.waitUntil(
-      caches.open(CACHE_NAME).then((cache) => {
-        return cache.addAll(FILES_TO_CACHE);
-      })
-    );
   
+  caches.open(CACHE_NAME).then(cache => {
+  return cache.addAll(FILES_TO_CACHE);
+      })
+    )
+  .then(cache => cache.addAll(FILES_To_CACHE))
     self.skipWaiting();
   });
 
-  
 self.addEventListener('activate', function(event) {
     event.waitUntil(
         caches.keys().then(function (keyList) {
