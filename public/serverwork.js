@@ -25,3 +25,4 @@ self.addEventListener("install", event => {
   .then(cache => cache.addAll(FILES_To_CACHE))
     self.skipWaiting();
   });
+// cant get to work
