@@ -49,8 +49,11 @@
   (function() {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("./service-worker.js")
-      .then(() => console.log("Worker as successfully registered"))
-      .catch(error => console.log("Worker has failed the registration:", error));
+      .then(() => 
+      console.log("Worker as successfully registered"))
+      .catch(error => 
+      console.log("Worker has failed the registration:",
+       error));
     }
   })();
 </script>
