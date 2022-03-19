@@ -7,6 +7,14 @@ request.onuppgradeneeded = function(event) {
 console.log(event);
     DB.createObjectStore("store", { autoIncrement: true});
 };
+function recordSave(save) {
+    const DB = request.result;
+    const transaction = DB.transaction(['store'], 'script');
+    const objectStore = transaction.objectStore('store');
+    objectStore.add(record)
+    storeName.add(save);
+
+}
 
 request.onsuccess = function(event) {
     console.log("Successful", event);
@@ -16,3 +24,5 @@ request.onsuccess = function(event) {
 request.onerror = function(event){
     console.log(event.target.error);
 }
+
+
