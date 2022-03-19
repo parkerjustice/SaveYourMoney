@@ -1,7 +1,3 @@
-const DATA_CACHE_NAME = "data-cache-v1";
-const CACHE_NAME = "APP_PPREFIX + VERSION";
-const APP_PREFIX = "SaveYourMoney"
-const VERSION = "version1"
 const FILES_To_CACHE = [
     "./index.html",
     "./manifest.json",
@@ -17,7 +13,7 @@ const FILES_To_CACHE = [
     "./icons/icon-512x512.png"
 ];
 
-
+console.log("check files");
 
 self.addEventListener("install", (event) => {
     event.waitUntil(
