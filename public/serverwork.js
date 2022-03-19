@@ -25,6 +25,8 @@ self.addEventListener("install", event => {
   .then(cache => cache.addAll(FILES_To_CACHE))
     self.skipWaiting();
   });
+  const APP_PREFIX = "SaveYourMoney";
+  const VERSION = "version1";
 // cant get to work
 //self.addEventListener("activate", event => {
   //event.waitUntil(caches
@@ -34,3 +36,17 @@ self.addEventListener("install", event => {
       //}))
   //)
 //})
+
+self.addEventListener('activate', function (event) {
+event.waitUntil(
+  caches.keys()
+  .then(function (k){
+    let cache = k.filter(function (finalKey) {
+      return finalKey.indexOf(APP_PREFIX);
+    });
+
+cache.push(CACHE_NAME);
+  })
+
+)
+})
